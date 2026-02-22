@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TierOne Defense - Cybersecurity Educational Suite</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0e17;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, #0a0e17 0%, #1a1f3a 50%, #0d1a2d 100%);
+            text-align: center;
+            padding: 80px 20px 60px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .brand-name {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #3b82f6;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #93c5fd;
+        }
+
+        /* Content */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 48px auto;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 24px 16px;
+            background: #0f1423;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* Section headers */
+        .section-title {
+            text-align: center;
+            margin: 64px 0 36px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* App cards */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .app-card {
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .app-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .app-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .app-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .app-card h3 {
+            font-size: 17px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .app-card .cert-org {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .app-card p {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .domain-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .domain-list li {
+            font-size: 13px;
+            color: #64748b;
+            padding: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .domain-list li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-family: monospace;
+        }
+
+        .app-status {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-top: 16px;
+        }
+
+        .status-live {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        .status-soon {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .feature {
+            padding: 24px;
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            padding: 40px 20px;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #93c5fd;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 28px; }
+            .hero-subtitle { font-size: 16px; }
+            .app-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="brand-name">TierOne Defense</div>
+        <h1>Cybersecurity <span>Educational Suite</span></h1>
+        <p class="hero-subtitle">
+            7 purpose-built iOS apps to help you master industry-leading cybersecurity certifications. Study smarter with focused flash cards, quizzes, and progress tracking.
+        </p>
+        <div class="badge-row">
+            <span class="badge">iOS &amp; iPadOS</span>
+            <span class="badge">Offline Study</span>
+            <span class="badge">7 Certification Paths</span>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Apps</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Certifications</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Flash Cards</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Offline</div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>The Suite</h2>
+            <p>Each app covers a complete certification curriculum</p>
+        </div>
+
+        <div class="app-grid">
+
+            <!-- CISSP -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #1e40af, #3b82f6);">&#x1F6E1;</div>
+                    <div>
+                        <h3>CISSP Flash Cards</h3>
+                        <div class="cert-org">(ISC)2</div>
+                    </div>
+                </div>
+                <p>Master all 8 domains of the Certified Information Systems Security Professional exam — the gold standard in information security.</p>
+                <ul class="domain-list">
+                    <li>Security &amp; Risk Management</li>
+                    <li>Asset Security</li>
+                    <li>Security Architecture</li>
+                    <li>Communication &amp; Network Security</li>
+                    <li>IAM, Security Assessment, Security Ops, Software Security</li>
+                </ul>
+                <span class="app-status status-live">Live on App Store</span>
+            </div>
+
+            <!-- Security+ -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #059669, #34d399);">&#x2705;</div>
+                    <div>
+                        <h3>Security+ Flash Cards</h3>
+                        <div class="cert-org">CompTIA SY0-701</div>
+                    </div>
+                </div>
+                <p>Prepare for the industry's most recognized entry-level cybersecurity certification with comprehensive coverage of all exam objectives.</p>
+                <ul class="domain-list">
+                    <li>General Security Concepts</li>
+                    <li>Threats, Vulnerabilities &amp; Mitigations</li>
+                    <li>Security Architecture</li>
+                    <li>Security Operations</li>
+                    <li>Security Program Management</li>
+                </ul>
+                <span class="app-status status-soon">Coming Soon</span>
+            </div>
+
+            <!-- CEH -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #dc2626, #f87171);">&#x1F575;</div>
+                    <div>
+                        <h3>CEH Flash Cards</h3>
+                        <div class="cert-org">EC-Council</div>
+                    </div>
+                </div>
+                <p>Study for the Certified Ethical Hacker exam. Covers offensive security techniques, penetration testing, and vulnerability assessment.</p>
+                <ul class="domain-list">
+                    <li>Footprinting &amp; Reconnaissance</li>
+                    <li>Scanning, Enumeration &amp; System Hacking</li>
+                    <li>Malware, Sniffing &amp; Social Engineering</li>
+                    <li>Web App Attacks &amp; Cryptography</li>
+                    <li>Cloud, IoT &amp; Mobile Security</li>
+                </ul>
+                <span class="app-status status-soon">Coming Soon</span>
+            </div>
+
+            <!-- CISA -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">&#x1F4CB;</div>
+                    <div>
+                        <h3>CISA Flash Cards</h3>
+                        <div class="cert-org">ISACA</div>
+                    </div>
+                </div>
+                <p>Ace the Certified Information Systems Auditor exam — the global standard for IT audit, control, and assurance professionals.</p>
+                <ul class="domain-list">
+                    <li>IS Auditing Process</li>
+                    <li>Governance &amp; Management of IT</li>
+                    <li>IS Acquisition &amp; Development</li>
+                    <li>IS Operations &amp; Business Resilience</li>
+                    <li>Protection of Information Assets</li>
+                </ul>
+                <span class="app-status status-soon">Coming Soon</span>
+            </div>
+
+            <!-- CISM -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #b45309, #fbbf24);">&#x1F4BC;</div>
+                    <div>
+                        <h3>CISM Flash Cards</h3>
+                        <div class="cert-org">ISACA</div>
+                    </div>
+                </div>
+                <p>Prepare for the Certified Information Security Manager exam — built for experienced professionals managing enterprise security programs.</p>
+                <ul class="domain-list">
+                    <li>Information Security Governance</li>
+                    <li>Information Risk Management</li>
+                    <li>Security Program Development</li>
+                    <li>Incident Management</li>
+                </ul>
+                <span class="app-status status-soon">Coming Soon</span>
+            </div>
+
+            <!-- SSCP -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #0e7490, #22d3ee);">&#x1F512;</div>
+                    <div>
+                        <h3>SSCP Flash Cards</h3>
+                        <div class="cert-org">(ISC)2</div>
+                    </div>
+                </div>
+                <p>Study for the Systems Security Certified Practitioner exam. Perfect for IT administrators and network security engineers.</p>
+                <ul class="domain-list">
+                    <li>Security Operations &amp; Administration</li>
+                    <li>Access Controls &amp; Cryptography</li>
+                    <li>Risk Identification &amp; Monitoring</li>
+                    <li>Incident Response &amp; Recovery</li>
+                    <li>Network &amp; Application Security</li>
+                </ul>
+                <span class="app-status status-soon">Coming Soon</span>
+            </div>
+
+            <!-- Google Cybersecurity -->
+            <div class="app-card">
+                <div class="app-card-header">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #1d4ed8, #60a5fa);">&#x1F393;</div>
+                    <div>
+                        <h3>Google Cyber Sec Cards</h3>
+                        <div class="cert-org">Google Career Certificate</div>
+                    </div>
+                </div>
+                <p>Supplement the Google Cybersecurity Professional Certificate. The most accessible path into cybersecurity for beginners.</p>
+                <ul class="domain-list">
+                    <li>Foundations of Cybersecurity</li>
+                    <li>Networks, Linux &amp; SQL</li>
+                    <li>Assets, Threats &amp; Vulnerabilities</li>
+                    <li>Detection &amp; Response</li>
+                    <li>Python for Cybersecurity</li>
+                </ul>
+                <span class="app-status status-soon">Coming Soon</span>
+            </div>
+
+        </div>
+
+        <div class="section-title">
+            <h2>Built for Serious Study</h2>
+            <p>Every app in the suite shares the same proven study framework</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">&#x1F3AF;</div>
+                <h3>Domain-Based Study</h3>
+                <p>Cards are organized by official exam domains so you can target weak areas and study systematically.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F4CA;</div>
+                <h3>Progress Tracking</h3>
+                <p>Track mastery across every card and domain. See what you know and what needs more review.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F9E0;</div>
+                <h3>Quiz Mode</h3>
+                <p>Test your knowledge with quizzes that simulate exam-style question formats and provide instant feedback.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F4F4;</div>
+                <h3>Fully Offline</h3>
+                <p>All content is stored locally. Study on planes, in basements, or anywhere without a connection.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F4F1;</div>
+                <h3>iPhone &amp; iPad</h3>
+                <p>Native iOS design optimized for both iPhone and iPad. Clean interface, no clutter, no distractions.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F513;</div>
+                <h3>Free + Premium</h3>
+                <p>Start studying for free with select domains. Unlock the full suite of cards with an optional subscription.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="support.html">Support</a>
+            <a href="mailto:cybersecurestl@gmail.com">Contact</a>
+        </div>
+        <p>&copy; 2026 TierOne Defense. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
